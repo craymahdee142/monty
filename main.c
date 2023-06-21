@@ -1,5 +1,4 @@
 #include "monty.h"
-buf_t buf = {NULL, NULL, NULL, 0};
 /**
  *main - Entry
  *@argc: num of arguments

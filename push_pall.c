@@ -37,7 +37,8 @@ void f_push(stack_t **head, unsigned int counter)
 /**
  *f_pall - prints stack element
  *@head: pointer head
- *Return: nothing 
+ *@counter: line number
+ *Return: nothing
  */
 void f_pall(stack_t **head, unsigned int counter)
 {

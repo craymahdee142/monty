@@ -1,6 +1,7 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+#define  _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -57,7 +58,7 @@ typedef struct buf_s
 	int lifi;
 } buf_t;
 
-extern buf_t buf;
+buf_t buf;
 
 void f_add(stack_t **head, unsigned int counter);
 void f_mod(stack_t **head, unsigned int counter);
