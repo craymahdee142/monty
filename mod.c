@@ -24,6 +24,15 @@ void f_mod(stack_t **head, unsigned int counter)
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
+	h = *head;
+	if (h->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", counter);
+		fclose(buf.file);
+		free(buf.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
 	temp = h->next->n % h->n;
 	h->next->n = temp;
 	*head = h->next;
