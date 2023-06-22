@@ -5,6 +5,8 @@
  *@args: monty file
  *Return: 0 (success)
  */
+buf_t buf;
+
 int main(int argc, char *args[])
 {
 	FILE *file;

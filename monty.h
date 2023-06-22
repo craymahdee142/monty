@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stddef.h>
+#include <sys/stat.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -58,7 +59,7 @@ typedef struct buf_s
 	int lifi;
 } buf_t;
 
-buf_t buf;
+extern buf_t buf;
 
 void f_add(stack_t **head, unsigned int counter);
 void f_mod(stack_t **head, unsigned int counter);
@@ -77,5 +78,10 @@ void addqueue(stack_t **head, int n);
 ssize_t getline(char **lineptr, size_t *n, FILE *file);
 int execute(char *content, stack_t **stack, unsigned int counter, FILE *file);
 void f_queue(stack_t **head, unsigned int counter);
+void f_pchar(stack_t **head, unsigned int counter);
+void f_pstr(stack_t **head, unsigned int counter);
+void f_rotl(stack_t **head,  __attribute__((unused)) unsigned int counter);
+void f_rotr(stack_t **head, __attribute__((unused)) unsigned int counter);
+void f_stack(stack_t **head, unsigned int counter);
 
 #endif

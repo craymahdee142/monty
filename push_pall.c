@@ -9,29 +9,45 @@
 void f_push(stack_t **head, unsigned int counter)
 {
 	int i = 0, n;
+	int res = 0;
 
 	if (buf.args != NULL)
 	{
 		if (buf.args[0] == '-')
 			i++;
-		for (i = 0; buf.args[i] != '\0'; i++)
+		for (; buf.args[i] != '\0'; i++)
 		{
 			/* checks if char is not a digit */
-			if (buf.args[i] > '9' || buf.args[i] < '0')
-			{
-				fprintf(stderr, "L%d: usage: push integer\n", counter);
-				fclose(buf.file);
-				free(buf.content);
-				free_stack(*head);
-				exit(EXIT_FAILURE);
-			}
+			if (buf.args[i] > 57 || buf.args[i] < 48)
+				res = 1; 
 		}
-		n = atoi(buf.args);
-		if (buf.lifi == 0)
-			addnode(head, n);
+		if (res == 1)
+		{	
+			fprintf(stderr, "L%d: usage: push integer\n", counter);
+			fclose(buf.file);
+			free(buf.content);
+			free_stack(*head);
+			exit(EXIT_FAILURE); 
+		}
 		else
-			addqueue(head, n);
+		{	
+			n = atoi(buf.args);
+                	if (buf.lifi == 0)
+                        addnode(head, n);
+                	else
+                        addqueue(head, n);
+		}
+		
 	}
+	else 
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", counter);
+		fclose(buf.file);
+		free(buf.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+
 }
 
 /**
