@@ -32,10 +32,10 @@ void f_push(stack_t **head, unsigned int counter)
 		else
 		{	
 			n = atoi(buf.args);
-                	if (buf.lifi == 0)
-                        addnode(head, n);
+             	   	if (buf.lifi == 0)
+                	        addnode(head, n);
                 	else
-                        addqueue(head, n);
+                        	addqueue(head, n);
 		}
 		
 	}
