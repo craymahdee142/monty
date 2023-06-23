@@ -9,15 +9,13 @@ void f_pop(stack_t **head, unsigned int counter)
 {
 	stack_t *h;
 
-	if (*head == NULL)
+	if (head == NULL || *head == NULL)
 	{
 		fprintf(stderr, "L%d: can't pop an empty\n", counter);
-		fclose(buf.file);
-		free(buf.content);
-		free_stack(*head);
+		free_buf();
 		exit(EXIT_FAILURE);
 	}
 	h = *head;
-	*head = h->next;
+	*head = (*head)->next;
 	free(h);
 }

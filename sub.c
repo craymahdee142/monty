@@ -1,32 +1,29 @@
 #include "monty.h"
 /**
- *f_sub - funtion that substract numbers
- *@head: head pointer of stack
- *@counter: line counetr
+ *f_sub - substract two elements on top of stack
+ *@head: head of stack
+ *@counter: line number
  *Return: nothing
  */
 void f_sub(stack_t **head, unsigned int counter)
 {
-	stack_t *temp;
-	int result, i = 0;
+	stack_t *h = NULL;
+	int len = 0;
 
-	temp = *head;
-	while (temp != NULL)
+	h = *head;
+
+	while (h != NULL)
 	{
-		temp = temp->next;
-		i++;
+		h = h->next;
+		len++;
 	}
-	if (i < 2)
+	if (len < 2)
 	{
-		fprintf(stderr, "L%d: can'sub, stack too short\n", counter);
-		fclose(buf.file);
-		free(buf.content);
-		free_stack(*head);
+		fprintf(stderr, "L%d: can't sub, stack too short\n", counter);
+		free_buf();
 		exit(EXIT_FAILURE);
 	}
-	temp = *head;
-	result = temp->next->n - temp->n;
-	temp->next->n =  result;
-	*head = temp->next;
-	free(temp);
+	h = (*head)->next;
+	h->n -= (*head)->n;
+	f_pop(head, counter);
 }

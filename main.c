@@ -5,45 +5,37 @@
  *@args: monty file
  *Return: 0 (success)
  */
-buf_t buf;
-
 int main(int argc, char *args[])
 {
-	FILE *file;
-	char *content = NULL;
-	stack_t *stack = NULL;
-	size_t size = 0;
-	ssize_t read_line = 1;
-	unsigned int counter = 0;
+	void (*f)(stack_t **stack, unsigned int line_number);
+	FILE *fd;
+	size_t size = 256;
+	ssize_t nlines = 0;
+	char *lines[2] = {NULL, NULL};
 
-	/* check number of argument passed*/
-	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
-	/*open a file specified in the command */
-	file = fopen(args[1], "r");
-	buf.file = file;
+	fd = check_input(argc, args);
+	start_buf(fd);
 
-	if (file == NULL)
+	nlines = getline(&buf.content, &size, fd);
+
+	while (nlines != -1)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", args[1]);
-		exit(EXIT_FAILURE);
-	}
-	while (read_line > 0)
-	{
-		content = NULL;
-		read_line = getline(&content, &size, file);
-		buf.content = content; /* set content for potential error msg*/
-		counter++;
-		if (read_line > 0) /*check is line was successfully read*/
+		lines[0] = _strtok(buf.content, " \t\n");
+		if (lines[0] && lines[0][0] != '#')
 		{
-			execute(content, &stack, counter, file);
+			f = get_opcodes(lines[0]);
+			if (!f)
+			{
+				fprintf(stderr, "unknown instruction %s\n", lines[0]);
+				free_buf();
+				exit(EXIT_FAILURE);
+			}
+			buf.args = _strtok(NULL, " \t\n");
+			f(&buf.head, buf.counter);
 		}
-		free(content);
+		nlines = getline(&buf.content, &size, fd);
+		buf.counter++;
 	}
-	free_stack(stack);
-	fclose(file);
+	free_buf();
 	return (0);
 }

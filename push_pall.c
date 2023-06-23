@@ -6,47 +6,32 @@
  *@counter: int counter
  *Return: nothing
  */
+
 void f_push(stack_t **head, unsigned int counter)
 {
-	int i = 0, n;
-	int res = 0;
+	int i, n;
 
-	if (buf.args != NULL)
-	{
-		if (buf.args[0] == '-')
-			i++;
-		for (; buf.args[i] != '\0'; i++)
-		{
-			/* checks if char is not a digit */
-			if (buf.args[i] > 57 || buf.args[i] < 48)
-				res = 1; 
-		}
-		if (res == 1)
-		{	
-			fprintf(stderr, "L%d: usage: push integer\n", counter);
-			fclose(buf.file);
-			free(buf.content);
-			free_stack(*head);
-			exit(EXIT_FAILURE); 
-		}
-		else
-		{	
-			n = atoi(buf.args);
-             	   	if (buf.lifi == 0)
-                	        addnode(head, n);
-                	else
-                        	addqueue(head, n);
-		}
-		
-	}
-	else 
+	if (buf.args == NULL)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", counter);
-		fclose(buf.file);
-		free(buf.content);
-		free_stack(*head);
+		free_buf();
 		exit(EXIT_FAILURE);
 	}
+	for (i = 0; buf.args[i] != '\0'; i++)
+	{
+		if (!isdigit(buf.args[i]) && buf.args[i] != '-')
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", counter);
+			free_buf();
+			exit(EXIT_FAILURE);
+		}
+	}
+	n = atoi(buf.args);
+
+	if (buf.lifi == 1)
+		add_dnodeint(head, n);
+	else
+		add_dnodeint_end(head, n);
 }
 
 /**

@@ -54,9 +54,11 @@ typedef struct instruction_s
 typedef struct buf_s
 {
         char *args;
-        FILE *file;
+        FILE *fd;
         char *content;
-	int lifi;
+	stack_t *head;
+        int lifi;
+	unsigned int counter;
 } buf_t;
 
 extern buf_t buf;
@@ -72,16 +74,28 @@ void f_div(stack_t **head, unsigned int counter);
 void f_nop(stack_t **head, unsigned int counter);
 void f_swap(stack_t **head, unsigned int counter);
 void f_pop(stack_t **head, unsigned int counter);
-void free_stack(stack_t *head);
-void addnode(stack_t **head, int n);
-void addqueue(stack_t **head, int n);
-ssize_t getline(char **lineptr, size_t *n, FILE *file);
-int execute(char *content, stack_t **stack, unsigned int counter, FILE *file);
 void f_queue(stack_t **head, unsigned int counter);
 void f_pchar(stack_t **head, unsigned int counter);
 void f_pstr(stack_t **head, unsigned int counter);
-void f_rotl(stack_t **head,  __attribute__((unused)) unsigned int counter);
-void f_rotr(stack_t **head, __attribute__((unused)) unsigned int counter);
+void f_rotl(stack_t **head, unsigned int counter);
+void f_rotr(stack_t **head, unsigned int counter);
 void f_stack(stack_t **head, unsigned int counter);
 
+
+void free_stack(stack_t *head);
+stack_t *add_dnodeint_end(stack_t **head, const int n);
+stack_t *add_dnodeint(stack_t **head, const int n);
+void (*get_opcodes(char *op))(stack_t **stack, unsigned int counter);
+
+int _sch(char *s, char c);
+char *_strtok(char *s, char *d);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void *_calloc(unsigned int nmemb, unsigned int size);
+int _strcmp(char *s1, char *s2);
+
+FILE *check_input(int argc, char *args[]);
+void start_buf(FILE *fd);
+void free_buf(void);
+
 #endif
+

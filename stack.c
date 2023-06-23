@@ -1,14 +1,15 @@
 #include "monty.h"
 /**
- * f_stack - prints the top
- * @head: stack head
- * @counter: line_number
- * Return: no return
+ *f_stack - sets the format of the data to LIFO,
+ *@head: stack head
+ *@counter: line_number
+ *Return: no return
 */
 void f_stack(stack_t **head, unsigned int counter)
 {
 	(void)head;
 	(void)counter;
-	buf.lifi = 0;
+
+	buf.lifi = 1;
 }
 

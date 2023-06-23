@@ -7,9 +7,8 @@
  */
 void f_add(stack_t **head, unsigned int counter)
 {
-	stack_t *h;
+	stack_t *h = NULL;
 	int len = 0;
-	int temp;
 
 	h = *head;
 	while (h != NULL)
@@ -20,14 +19,10 @@ void f_add(stack_t **head, unsigned int counter)
 	if (len < 2)
 	{
 		fprintf(stderr, "L%d: can't add, stack too short\n", counter);
-		fclose(buf.file);
-		free(buf.content);
-		free_stack(*head);
+		free_buf();
 		exit(EXIT_FAILURE);
 	}
-	h = *head;
-	temp = h->n + h->next->n;
-	h->next->n = temp;
-	*head = h->next;
-	free(h);
+	h = (*head)->next;
+	h->n += (*head)->n;
+	f_pop(head, counter);
 }
